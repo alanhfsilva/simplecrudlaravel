@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Models\Category;
 
 class CategoryController extends Controller
@@ -15,7 +16,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('layout.categories', compact(['categories']));
+        return view('web.sections.category.index', compact(['categories']));
     }
 
     /**
@@ -25,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('layout.categorynew');
+        return view('web.sections.category.new');
     }
 
     /**
@@ -69,7 +70,7 @@ class CategoryController extends Controller
         $category = Category::find($id);
         if(isset($category))
         {
-            return view("layout.category",compact('category'));
+            return view("web.sections.category.edit",compact('category'));
         }
         return redirect('/categories');
     }
@@ -84,9 +85,15 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate(
-            ['name' => 'required|min:2|max:100']
+            [   'name' => [
+                    'required',
+                    'min:2',
+                    'max:100',
+                    Rule::unique('categories')->ignore($id),
+                ]
+            ]
         );
-        
+
         $category = Category::find($id);
         $category->name = $request->input('name');
         $category->save();
@@ -109,5 +116,16 @@ class CategoryController extends Controller
             $category->delete();
         }
         return redirect("/categories");
+    }
+    
+    /**
+     * Display a listing of the resource in json format.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexJson()
+    {
+        $categories = Category::orderBy('name')->get();
+        return $categories->toJson();
     }
 }

@@ -3,17 +3,30 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
+use App\Models\Category;
 
 class ProductController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource in json format
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('layout.products');
+        $products = Product::orderBy('name')->get();
+    }
+    
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexView()
+    {
+        $products = Product::all();
+        return view('web.sections.product.index', compact('products'));
     }
 
     /**
@@ -23,7 +36,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::orderBy('name')->get();
+        return view('web.sections.product.edit', compact('categories'));
     }
 
     /**

@@ -8,9 +8,9 @@
         <table class="table table-ordered table-hover">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Actions</th>
+                    <th width="10%">ID</th>
+                    <th width="70%">Name</th>
+                    <th width="20%">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,7 +27,7 @@
             </tbody>
         </table>
         @else 
-        <h5>No results found.</h5>
+            @include('components.noresults') 
         @endif
     </div>
     <div class="card-footer">
