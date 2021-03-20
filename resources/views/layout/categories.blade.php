@@ -4,6 +4,7 @@
 <div class="card">
     <div class="card-body">
         <h5 class="card-title">Categories list</h5>
+        @if(!$categories->isEmpty())
         <table class="table table-ordered table-hover">
             <thead>
                 <tr>
@@ -25,6 +26,12 @@
                 @endforeach
             </tbody>
         </table>
+        @else 
+        <h5>No results found.</h5>
+        @endif
+    </div>
+    <div class="card-footer">
+        <a href="/categories/create" class="btn btn-primary btn-sm" role="button">+ Add new</a>
     </div>
 </div>
 

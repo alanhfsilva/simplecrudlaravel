@@ -22,4 +22,7 @@ Route::get('/', function () {
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/categories/create', [CategoryController::class, 'create']);
+Route::get('/categories/edit/{id}', [CategoryController::class, 'edit']);
+Route::get('/categories/delete/{id}', [CategoryController::class, 'destroy']);
 Route::post('/categories', [CategoryController::class, 'store']);
+Route::post('/categories/{id}', [CategoryController::class, 'update']);

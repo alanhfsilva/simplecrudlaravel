@@ -36,6 +36,10 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate(
+            ['name' => 'required|min:2|max:100']
+        );
+
         $category = new Category();
         $category->name = $request->input('name');
         $category->save();
@@ -62,7 +66,12 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::find($id);
+        if(isset($category))
+        {
+            return view("layout.category",compact('category'));
+        }
+        return redirect('/categories');
     }
 
     /**
@@ -74,7 +83,15 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate(
+            ['name' => 'required|min:2|max:100']
+        );
+        
+        $category = Category::find($id);
+        $category->name = $request->input('name');
+        $category->save();
+
+        return redirect("/categories");
     }
 
     /**
@@ -85,6 +102,12 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+
+        if(isset($category))
+        {
+            $category->delete();
+        }
+        return redirect("/categories");
     }
 }
