@@ -16,6 +16,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::orderBy('name')->get();
+        return $products->toJson();
     }
     
     /**
@@ -48,7 +49,13 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = new Product();
+        $product->name = $request->input('name');
+        $product->category_id = $request->input('category_id');
+        $product->price = $request->input('price');
+        $product->inventory = $request->input('inventory');
+        $product->save();
+        return $product->toJson();
     }
 
     /**

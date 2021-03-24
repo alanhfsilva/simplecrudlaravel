@@ -4,8 +4,7 @@
 <div class="card">
     <div class="card-body">
         <h5 class="card-title">Products list</h5>
-        @if(!$products->isEmpty())
-        <table class="table table-ordered table-hover">
+        <table class="table table-ordered table-hover" id="tblProducts">
             <thead>
                 <tr>
                     <th width="5%">ID</th>
@@ -20,7 +19,7 @@
                 
             </tbody>
         </table>
-        @else 
+        @if($products->isEmpty()) 
             @include('components.noresults') 
         @endif
     </div>
@@ -64,14 +63,43 @@
                 })
     
         });
+        loadProducts();
     });
+
     function loadCategoriesInSelect() {
         var url = "/api/categories";
-        var slCategory = $('#slCategory');
+        var sl_category = $('#slCategory');
         $.getJSON(url, function(data) {
             for(i=0;i<data.length;i++) {
                 option = '<option value="'+data[i].id+'">'+data[i].name+'</option>';
-                slCategory.append(option);
+                sl_category.append(option);
+            }
+        });
+    }
+
+    function mountRow(data,no_columns,actions){
+        var row = "<tr>";
+        for (const property in data) {
+            if(!no_columns.includes(property) ) {
+                row += "<td>"+data[property]+"</td>";
+            }
+        }
+        if(actions) {
+            row += '<td><a href="#'+data.id+'" class="btn btn-sm btn-primary">Edit</a> <a href="#'+data.id+'" class="btn btn-sm btn-danger">Delete</a></td>';
+        }
+        row += "</tr>\n";
+        return row;
+    } 
+
+    function loadProducts() {
+        var url = "/api/products";
+        var table_products = $('#tblProducts>tbody');
+
+        $.getJSON(url, function(data) {
+            table_products.html('');
+            for(i=0;i<data.length;i++) {
+                row = mountRow(data[i],['created_at','updated_at'],true);
+                table_products.append(row);
             }
         });
     }

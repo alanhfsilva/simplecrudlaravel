@@ -21,4 +21,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/categories', [CategoryController::class, 'indexJson']);
-Route::get('/products', [CategoryController::class, 'index']);
+Route::resource('/products', ProductController::class);

@@ -13,9 +13,9 @@
     <div class="modal-body">
         <div class="form-group">
             <label for="productName">Name: </label>
-            <input type="text" id="productName" name="name" class="form-control" placeholder="Product name" required>
+            <input type="text" id="productName" name="name" class="form-control" placeholder="Product name">
             <label for="productName">Category: </label>
-            <select name="category_id" id="slCategory" class="form-control" required>
+            <select name="category_id" id="slCategory" class="form-control">
             </select>
             <div class="row">
                 <div class="col-lg-6">
@@ -24,14 +24,31 @@
                 </div>
                 <div class="col-lg-6">
                     <label for="productInventory">Inventory: </label>
-                    <input type="number" id="productinventory" min="0" step="0.01" name="price" class="form-control" placeholder="Product Inventory">
+                    <input type="number" id="productinventory" min="0" step="0.01" name="inventory" class="form-control" placeholder="Product Inventory">
                 </div>
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary">Save</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
     </div>
 </form>
+<script>
+    $(document).ready(function () {
+        $('#frmProduct').submit(function (e){
+            e.preventDefault();
+            submitProductData();
+            $('#mdlProduct').modal('hide');
+            loadProducts();
+        });
+    });
+
+    function submitProductData() {
+        var params = $('#frmProduct').serialize();
+        $.post('/api/products',params,function(data){
+            console.log(data);
+        });
+    }
+</script>
 @endsection
