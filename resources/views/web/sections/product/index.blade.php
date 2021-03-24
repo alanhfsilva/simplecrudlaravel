@@ -44,10 +44,6 @@
                     type: 'GET',
                     url: '{{ route('products.create') }}',
                     dataType: 'HTML',
-    
-                    success: function (data) {
-    
-                    },
                 }).then(data => {
                     $('#mdlProduct').html(data).modal("show");
                     $('#productName').focus();
