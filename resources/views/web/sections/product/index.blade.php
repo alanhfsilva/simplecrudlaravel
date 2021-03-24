@@ -53,7 +53,6 @@
                 }).then(data => {
                     $('#mdlProduct').html(data).modal("show");
                     $('#productName').focus();
-                    loadCategoriesInSelect();
                 })
                 .catch(error => {
                     var xhr = $.ajax();
@@ -64,17 +63,6 @@
         });
         loadProducts();
     });
-
-    function loadCategoriesInSelect() {
-        var url = "{{ route('api.categories') }}";
-        var sl_category = $('#slCategory');
-        $.getJSON(url, function(data) {
-            for(i=0;i<data.length;i++) {
-                option = '<option value="'+data[i].id+'">'+data[i].name+'</option>';
-                sl_category.append(option);
-            }
-        });
-    }
 
     function mountRow(data,no_columns,actions){
         var row = "<tr>";
@@ -106,7 +94,7 @@
     function productEdit(product_id) {
         $.ajax({
             type: 'GET',
-            url: '{{ route('products.create') }}',
+            url: '{{ route('products.index') }}/'+product_id+'/edit',
             dataType: 'HTML',
 
             success: function (data) {
@@ -115,7 +103,6 @@
         }).then(data => {
             $('#mdlProduct').html(data).modal("show");
             $('#productName').focus();
-            loadCategoriesInSelect();
         })
         .catch(error => {
             var xhr = $.ajax();
