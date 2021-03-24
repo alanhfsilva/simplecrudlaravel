@@ -103,7 +103,7 @@ class ProductController extends Controller
                 'category_id' =>  'required'
             ]
         );
-        
+
         $product = Product::find($id);
         if(isset($product)) 
         {

@@ -23,4 +23,13 @@ class Product extends Model
         return $this->attributes['category_name'];
     }
 
+    /**
+     * Get the category for the product
+     * 
+     * @return App\Models\Category
+     */
+    public function category()
+    {
+        return $this->hasOne(Category::class,'id','category_id');
+    }
 }
