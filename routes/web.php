@@ -20,7 +20,6 @@ Route::get('/', function () {
 });
 
 Route::get('/products', [ProductController::class, 'indexView']);
-Route::get('/products/create', [ProductController::class, 'create']);
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/categories/create', [CategoryController::class, 'create']);
 Route::get('/categories/edit/{id}', [CategoryController::class, 'edit']);
