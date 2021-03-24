@@ -46,9 +46,27 @@
 
     function submitProductData() {
         var params = $('#frmProduct').serialize();
-        $.post('/api/products/{{ old('id', $product->id ?? '') }}',params,function(data){
+        @if(isset($product->id))
+        $.ajax({
+            type: 'PUT',
+            url: '{{ route("products.update",$product->id) }}',
+            dataType: 'json',
+            data: params
+        }).then(data => {
+            console.log('Product updated.');
+            $('#mdlProduct').html(data).modal("hide");
+            loadProducts();
+        })
+        .catch(error => {
+            var xhr = $.ajax();
+            console.log(xhr);
+            console.log(error);
+        });
+        @else
+        $.post('{{route('products.store')}}',params,function(data){
             console.log(data);
         });
+        @endif
     }
 
     function loadCategoriesInSelect() {
