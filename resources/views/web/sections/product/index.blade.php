@@ -85,7 +85,7 @@
         $.getJSON(url, function(data) {
             table_products.html('');
             for(i=0;i<data.length;i++) {
-                row = mountRow(data[i],['created_at','updated_at'],true);
+                row = mountRow(data[i],['created_at','updated_at','category_id'],true);
                 table_products.append(row);
             }
         });
