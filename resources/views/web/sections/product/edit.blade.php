@@ -13,9 +13,9 @@
     <div class="modal-body">
         <div class="form-group">
             <label for="productName">Name: </label>
-            <input type="text" id="productName" name="name" class="form-control" placeholder="Product name" value="{{ old('id', $product->name ?? '') }}">
+            <input type="text" id="productName" name="name" class="form-control" placeholder="Product name" value="{{ old('id', $product->name ?? '') }}" required>
             <label for="productName">Category: </label>
-            <select name="category_id" id="slCategory" class="form-control">
+            <select name="category_id" id="slCategory" class="form-control" required>
             </select>
             <div class="row">
                 <div class="col-lg-6">

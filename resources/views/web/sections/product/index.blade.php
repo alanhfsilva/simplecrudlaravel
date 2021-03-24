@@ -15,9 +15,7 @@
                     <th width="15%">Actions</th>
                 </tr>
             </thead>
-            <tbody>
-                
-            </tbody>
+            <tbody></tbody>
         </table>
         @if($products->isEmpty()) 
             @include('components.noresults') 
@@ -80,7 +78,7 @@
 
     function loadProducts() {
         var url = "{{route('products.index')}}";
-        var table_products = $('#tblProducts>tbody');
+        var table_products = $('#tblProducts > tbody');
 
         $.getJSON(url, function(data) {
             table_products.html('');
@@ -95,11 +93,7 @@
         $.ajax({
             type: 'GET',
             url: '{{ route('products.index') }}/'+product_id+'/edit',
-            dataType: 'HTML',
-
-            success: function (data) {
-
-            },
+            dataType: 'HTML'
         }).then(data => {
             $('#mdlProduct').html(data).modal("show");
             $('#productName').focus();
@@ -116,11 +110,7 @@
             $.ajax({
                 type: 'DELETE',
                 url: '{{route('products.index')}}/'+product_id,
-                dataType: 'HTML',
-    
-                success: function (data) {
-    
-                },
+                dataType: 'HTML'
             }).then(data => {
                 console.log('Product deleted.');
                 loadProducts();

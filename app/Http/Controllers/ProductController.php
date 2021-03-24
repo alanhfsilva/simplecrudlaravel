@@ -37,8 +37,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::orderBy('name')->get();
-        return view('web.sections.product.edit', compact('categories'));
+        return view('web.sections.product.edit');
     }
 
     /**
@@ -49,6 +48,13 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate(
+            [
+                'name' => 'required|min:2|max:100',
+                'category_id' =>  'required'
+            ]
+        );
+
         $product = new Product();
         $product->name = $request->input('name');
         $product->category_id = $request->input('category_id');
@@ -91,6 +97,13 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate(
+            [
+                'name' => 'required|min:2|max:100',
+                'category_id' =>  'required'
+            ]
+        );
+        
         $product = Product::find($id);
         if(isset($product)) 
         {
