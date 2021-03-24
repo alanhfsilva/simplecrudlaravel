@@ -29,6 +29,7 @@ Enter in the directory _simplecrudlaravel_ and run:
 composer update
 composer install
 php artisan migrate
+php artisan db:seed
 ```
 
 Now, you can enter on _public_ folder and star the PHP server for testing purposes running:
